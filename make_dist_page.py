@@ -3,9 +3,9 @@
 from pathlib import Path
 
 DIST = Path(__file__).resolve().parent / "dist"
-FORMATS = [
-    ("object", "Object", "モノ 1 本 + 位置の列。再生時に位置へ置く", False),
+FORMATS = [  # 並び順は Channel → Object → Scene (1 次 → 3 次)
     ("ch51", "Channel 5.1", "スピーカー 5 本の音をそのまま保存。音像はスピーカー間の中間に作られる", True),
+    ("object", "Object", "モノ 1 本 + 位置の列。再生時に位置へ置く", False),
     ("foa", "Scene FOA (1次)", "4 本の係数 (W, Y, Z, X)。1 次はにじむ", True),
     ("hoa3", "Scene 3次", "16 本の係数。1 次より締まる", True),
 ]
@@ -13,9 +13,11 @@ FORMATS = [
 bin_btns = "".join(f'<button data-k="{k}"><b>{l}</b><br><small>{d}</small></button>' for k, l, d, _ in FORMATS)
 bin_auds = "".join(f'<audio preload="auto" data-k="{k}" src="binaural/{k}.wav"></audio>' for k, _, _, _ in FORMATS)
 apac_rows = "".join(
-    f'<tr><td><b>{l}</b></td><td><audio controls preload="none" src="apac/{k}.mp4"></audio></td>'
-    f'<td><a href="apac/{k}.mp4" download>apac/{k}.mp4</a></td><td><a href="both/{k}.mov" download>both/{k}.mov</a></td></tr>'
-    for k, l, _, has in FORMATS if has)
+    (f'<tr><td><b>{l}</b></td><td><audio controls preload="none" src="apac/{k}.mp4"></audio></td>'
+     f'<td><a href="apac/{k}.mp4" download>apac/{k}.mp4</a></td><td><a href="both/{k}.mov" download>both/{k}.mov</a></td></tr>')
+    if has else
+    f'<tr><td><b>{l}</b></td><td colspan="3"><small>無し。Apple のエンコーダ (afconvert / AVAssetWriter) が APAC に書けるのは 3 次までの Ambisonics とチャンネルベースだけで、Object の ASAF / APAC 化はプロツール (Pro Tools, Resolve) 側の役目。A のバイノーラル版で聴く</small></td></tr>'
+    for k, l, _, has in FORMATS)
 
 html = f"""<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
 <title>同じ点音源を 3 通りに記録して聴き比べ</title><style>
@@ -40,8 +42,7 @@ table{{border-collapse:collapse;width:100%}}td{{border-top:1px solid #ddd;paddin
 
 <section><h2>B. APAC 版 (iPhone / iPad / Mac + AirPods など)</h2>
 <p class="note">こちらは逆に<b>空間オーディオをオン</b> (ヘッドトラッキングも可)。端末側のレンダラーが 5.1 / FOA / 3 次をそのまま受け取って頭の向きに合わせて鳴らす。</p>
-<p>Apple Positional Audio Codec (APAC) で符号化した素のデータ。Object は APAC (afconvert) では書けないので無し (Object を運ぶのは ASAF の役目)。
-再生できない環境では無音か再生不可になる。<code>both/</code> は iPhone の撮影ファイルと同じ構造で、<b>APAC トラック (無効) + AAC ステレオ (有効, fallback)</b> の 2 本を 1 ファイルに持つ。AAC 側の中身は A のバイノーラル。</p>
+<p>Apple Positional Audio Codec (APAC) で符号化した素のデータ。再生できない環境では無音か再生不可になる。<code>both/</code> は iPhone の撮影ファイルと同じ構造で、<b>APAC トラック (無効) + AAC ステレオ (有効, fallback)</b> の 2 本を 1 ファイルに持つ。AAC 側の中身は A のバイノーラル。</p>
 <table><tr><td></td><td>再生 (APAC)</td><td>APAC のみ</td><td>APAC + fallback</td></tr>{apac_rows}</table>
 </section>
 
