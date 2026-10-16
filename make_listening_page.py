@@ -56,12 +56,12 @@ for prefix, suffix, vlabel in VIEWS:
         f'<div class="ctl"><button class="play">▶ 再生 / 一時停止</button> <span class="t">0.0 s</span></div>{"".join(auds)}</section>')
 
 html = f"""<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>同じ点音源を 3 通りに記録して聴き比べ</title><style>
+<title>同じ点音源を Channel / Object / Scene で記録して聴き比べ</title><style>
 body{{font-family:-apple-system,sans-serif;max-width:760px;margin:24px auto;padding:0 16px;line-height:1.6}}
 section{{border:1px solid #ccc;border-radius:10px;padding:12px 16px;margin:16px 0}}
 .btns button{{display:block;width:100%;text-align:left;margin:6px 0;padding:8px;border-radius:6px;border:1px solid #999;background:#f6f6f6}}
 .btns button.on{{background:#ef5237;color:#fff;border-color:#ef5237}}.ctl{{margin-top:8px}}
-</style><h1>同じ点音源を 3 通りに記録して聴き比べ</h1>
+</style><h1>同じ点音源を Channel / Object / Scene で記録して聴き比べ</h1>
 <p><b>ヘッドホンで、OS の「空間オーディオ / ステレオを空間化」をオフにして</b> (すでに HRTF 済みなので、オンだと二重にかかる)。音源は「ぜろ〜じゅういち」を 1 秒おきに数えながら、1.5 m の距離で<b>時計回りに 1 周</b>する。
 数字は<b>時計の文字盤の位置</b> (ぜろ = 12 時 = 正面, さん = 3 時 = 右, ろく = 6 時 = 後ろ, きゅう = 9 時 = 左)。全部 AVAudioEnvironmentNode (Apple の HRTF) で同じようにレンダリング。
 ボタンを押すと<b>同じ再生位置のまま</b>切り替わる。ラウドネスは {TARGET:.0f} LUFS に揃えてある。</p>

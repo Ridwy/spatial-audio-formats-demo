@@ -20,7 +20,7 @@ apac_rows = "".join(
     for k, l, _, has in FORMATS)
 
 html = f"""<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>同じ点音源を 3 通りに記録して聴き比べ</title><style>
+<title>同じ点音源を Channel / Object / Scene で記録して聴き比べ</title><style>
 body{{font-family:-apple-system,sans-serif;max-width:760px;margin:24px auto;padding:0 16px;line-height:1.6}}
 section{{border:1px solid #ccc;border-radius:10px;padding:12px 16px;margin:16px 0}}
 .btns button{{display:block;width:100%;text-align:left;margin:6px 0;padding:8px;border-radius:6px;border:1px solid #999;background:#f6f6f6}}
@@ -28,10 +28,10 @@ section{{border:1px solid #ccc;border-radius:10px;padding:12px 16px;margin:16px 
 table{{border-collapse:collapse;width:100%}}td{{border-top:1px solid #ddd;padding:6px 4px;vertical-align:middle}}audio{{width:100%;max-width:260px}}
 .note{{background:#fff5f2;border-left:4px solid #ef5237;padding:8px 12px}}
 </style>
-<h1>同じ点音源を 3 通りに記録して聴き比べ</h1>
+<h1>同じ点音源を Channel / Object / Scene で記録して聴き比べ</h1>
 <p>音源は「ぜろ〜じゅういち」を 1 秒おきに数えながら、1.5 m の距離で<b>時計回りに 1 周</b>する。
 数字は<b>時計の文字盤の位置</b> (ぜろ = 12 時 = 正面, さん = 3 時 = 右, ろく = 6 時 = 後ろ, きゅう = 9 時 = 左)。
-同じ音源・同じ軌道を Channel / Object / Scene の 3 通りで記録してある。違いは「記録の仕方」だけ。</p>
+同じ音源・同じ軌道を Channel / Object / Scene の 3 つの考え方で記録してある (Scene は 1 次と 3 次の 2 種、計 4 ファイル)。違いは「記録の仕方」だけ。</p>
 
 <section><h2>A. バイノーラル版 (どの端末でも)</h2>
 <p class="note">ヘッドホンで。<b>OS の「空間オーディオ / ステレオを空間化」はオフ</b> (すでに HRTF 済みなので、オンだと二重にかかる)。</p>
